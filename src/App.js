@@ -15,7 +15,7 @@ function App() {
     alignItems: "center",
     height: "100vh"
   }
-  
+
   const getCountries = async() => {
     try{
       let res = await axios.get("https://restcountries.com/v3.1/all");
@@ -31,17 +31,11 @@ function App() {
 
   useEffect(() => {
     let fC = countries.filter(country => country.name.common.toLowerCase().includes(countryName.toLocaleLowerCase()));
-    let timer = setTimeout(()=>{
-      if(countryName.length >= 1){
-        setCountries(fC);
-      }else{
-        getCountries();
-      }
-    }, 500)
-
-    return (() => {
-      clearTimeout(timer);
-    })
+    if(countryName.length >= 1){
+      setCountries(fC);
+    }else{
+      getCountries();
+    }
   }, [countryName]);
 
   console.log(countryName)
